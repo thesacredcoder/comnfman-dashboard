@@ -25,14 +25,17 @@ function LoginPage(props) {
     console.log(newUserDetails);
 
     try {
-      const res = await fetch("http://localhost:4000/users/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUserDetails),
-        credentials: "include",
-      });
+      const res = await fetch(
+        process.env.CONFMAN_API_BASE_URL + "users/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUserDetails),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 

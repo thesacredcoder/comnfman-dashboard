@@ -23,14 +23,17 @@ function register(props) {
     const newUserDetails = { ...userDetails, role: "AUTHOR" };
 
     try {
-      const res = await fetch("http://localhost:4000/users/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUserDetails),
-        credentials: "include",
-      });
+      const res = await fetch(
+        process.env.CONFMAN_API_BASE_URL + "users/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUserDetails),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 

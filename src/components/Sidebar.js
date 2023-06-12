@@ -28,7 +28,7 @@ function Sidebar({ currentRoute }) {
   useOutsideClick(dropdownRef, closeDropdown);
 
   const handleLogout = async () => {
-    await fetch("http://localhost:4000/users/logout", {
+    await fetch(process.env.CONFMAN_API_BASE_URL + "users/logout", {
       method: "DELETE",
       credentials: "include",
     });
