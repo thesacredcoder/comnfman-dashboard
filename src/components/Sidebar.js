@@ -43,15 +43,12 @@ function Sidebar({ currentRoute }) {
   return (
     <div className="bg-white w-60 h-screen border-r border-gray-200 pt-10 fixed top-0">
       <div className="px-8">
-        <Link href="/" className="inline-flex items-center">
+        <Link href="/" className="flex justify-center items-center">
           <img
-            src="/path/to/your/logo.png"
+            src="https://confman-public-assets.s3.ap-southeast-1.amazonaws.com/Logo.png"
             alt="Logo"
-            className="h-8 w-8 mr-2"
+            className="h-12"
           />
-          <span className="text-gray-800 text-xl font-semibold">
-            Brand Name
-          </span>
         </Link>
       </div>
       <div className="relative h-5/6">
@@ -78,16 +75,19 @@ function Sidebar({ currentRoute }) {
           className="px-4 py-4 absolute -bottom-8 left-0 border-t rounded-xl border-gray-200 cursor-pointer"
           onClick={toggleDropdown}
         >
-          <div className="flex items-center">
+          <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-gray-800 font-semibold">{user?.data?.name}</p>
               <p className="text-gray-600 text-xs">{user?.data?.email}</p>
             </div>
-            <img
+            {/* <img
               src={user?.data?.imageUrl}
               alt="User"
               className="h-10 w-10 rounded-full ml-4"
-            />
+            /> */}
+            <div className="bg-blue-500 p-2 px-4 mt-1 text-white font-semibold rounded-full">
+              {user?.data?.name.charAt(0)}
+            </div>
           </div>
         </div>
         {isDropdownOpen && (

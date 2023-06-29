@@ -2,6 +2,7 @@ import { fetchAllConferences, joinConference } from "@/api";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export function Badge({ label, color }) {
   switch (label) {
@@ -26,6 +27,28 @@ export function Badge({ label, color }) {
   }
 }
 
+function SkeletonCard() {
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+      <div className="flex justify-between items-center">
+        <Skeleton height={20} width={200} />
+        <Skeleton height={20} width={80} />
+      </div>
+      <Skeleton height={60} />
+      <div className="text-gray-500 text-xs mb-2">
+        <Skeleton width={100} />
+      </div>
+      <div className="text-gray-500 text-xs">
+        <Skeleton width={150} />
+      </div>
+      <div className="flex items-center gap-4">
+        <Skeleton height={40} width={80} />
+        <Skeleton circle={true} height={20} width={20} />
+      </div>
+    </div>
+  );
+}
+
 function ConferenceCard({ conference }) {
   const { name, description, startDate, endDate, status, organization } =
     conference;
@@ -33,7 +56,9 @@ function ConferenceCard({ conference }) {
   const router = useRouter();
 
   const handleJoin = async (conferenceId) => {
+    console.log(conferenceId);
     const res = await joinConference(conferenceId);
+    console.log(res);
     if (res?.data) {
       router.push("/myconferences");
     }
@@ -69,6 +94,12 @@ function ConferenceCard({ conference }) {
 }
 
 function Conferences({ conferences }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => setLoading(false), []);
+
+  const skeletonCards = Array.from({ length: 3 });
+
   if (conferences.length === 0) {
     return (
       <div className="max-w-4xl mx-auto py-8">
@@ -82,11 +113,25 @@ function Conferences({ conferences }) {
   return (
     <div className="max-w-4xl mx-auto py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-700">Conferences</h1>
-      <div className="flex flex-col space-y-4">
+      {/* <div className="flex flex-col space-y-4">
         {conferences.map((conference) => (
           <ConferenceCard key={conference.id} conference={conference} />
         ))}
-      </div>
+      </div> */}
+
+      {loading ? (
+        <div>
+          {skeletonCards.map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col space-y-4">
+          {conferences.map((conference) => (
+            <ConferenceCard key={conference.id} conference={conference} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

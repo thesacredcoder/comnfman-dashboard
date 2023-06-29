@@ -16,15 +16,17 @@ function register(props) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isGitHubLoading, setIsGitHubLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const newUserDetails = { ...userDetails, role: "AUTHOR" };
+    const newUserDetails = { ...userDetails, role: selectedRole };
 
     try {
       const res = await fetch(
-        process.env.CONFMAN_API_BASE_URL + "users/signup",
+        // process.env.CONFMAN_API_BASE_URL + "users/signup",
+        "http://localhost:4000/users/signup",
         {
           method: "POST",
           headers: {
@@ -55,7 +57,27 @@ function register(props) {
       >
         Login
       </Link>
-      <div className="hidden h-full bg-muted lg:block" />
+      <div className="h-full bg-muted flex flex-col w-full items-center justify-center gap-4">
+        <h1>Choose your role</h1>
+        <button
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background text-primary border-2 hover:text-white focus:bg-primary focus:text-white hover:bg-primary/90 h-10 py-2 px-4"
+          onClick={() => setSelectedRole("AUTHOR")}
+        >
+          Author
+        </button>
+        <button
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background text-primary border-2 hover:text-white focus:bg-primary focus:text-white hover:bg-primary/90 h-10 py-2 px-4"
+          onClick={() => setSelectedRole("REVIEWER")}
+        >
+          Reviewer
+        </button>
+        <button
+          className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background text-primary border-2 hover:text-white focus:bg-primary focus:text-white hover:bg-primary/90 h-10 py-2 px-4"
+          onClick={() => setSelectedRole("MANAGER")}
+        >
+          Manager
+        </button>
+      </div>
       <div className="lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
@@ -64,7 +86,7 @@ function register(props) {
               Create an account
             </h1>
             <p className="text-sm text-muted-foreground">
-              Enter your email below to create your account
+              Enter your email below to create your account {selectedRole ?? ""}
             </p>
           </div>
 

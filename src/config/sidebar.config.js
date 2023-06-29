@@ -11,7 +11,7 @@ export const sidebarConfig = [
     name: "Dashboard",
     href: "/",
     icon: HomeIcon,
-    roles: ["AUTHOR", "MANAGER"],
+    roles: ["AUTHOR", "MANAGER", "REVIEWER"],
   },
   {
     name: "Papers",

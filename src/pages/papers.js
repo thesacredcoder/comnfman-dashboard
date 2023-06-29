@@ -1,8 +1,24 @@
 import { fetchPaperDetails } from "@/api";
+import Link from "next/link";
 import React from "react";
 
 function papers({ data }) {
-  console.log(data);
+  if (data?.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto h-full py-8 relative">
+        <h1 className="text-3xl font-bold mb-8 text-gray-700">Conferences</h1>
+
+        <p className="text-gray-700">You have not submitted any paper so far</p>
+        <Link
+          href="/conferences"
+          className="absolute top-1/2 left-1/2 bg-primary text-accent p-2 rounded-xl"
+        >
+          Go to conferences
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-700">My Papers</h1>

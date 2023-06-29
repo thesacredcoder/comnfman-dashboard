@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Badge } from "../conferences";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 function ConferenceCard({ conference }) {
   const { name, description, startDate, endDate, status, organization } =
@@ -48,10 +49,28 @@ function ConferenceCard({ conference }) {
 }
 
 function MyConferences({ data }) {
+  if (data?.conferences?.length === 0) {
+    return (
+      <div className="max-w-4xl mx-auto h-full py-8 relative">
+        <h1 className="text-3xl font-bold mb-8 text-gray-700">Conferences</h1>
+
+        <p className="text-gray-700">
+          You have not joined any conference so far...
+        </p>
+        <Link
+          href="/conferences"
+          className="absolute top-1/2 left-1/2 bg-primary text-accent p-2 rounded-xl"
+        >
+          Go to conferences
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto py-8">
       <h3 className="text-3xl font-bold mb-8 text-gray-700">My Conferences</h3>
-      {data?.conferences.map((conference) => (
+      {data?.conferences?.map((conference) => (
         <ConferenceCard key={conference.id} conference={conference} />
       ))}
     </div>

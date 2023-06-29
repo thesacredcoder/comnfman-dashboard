@@ -15,6 +15,8 @@ function LoginPage(props) {
   const { setUser } = useUser();
   const router = useRouter();
 
+  console.log(process.env.CONFMAN_API_BASE_URL);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle user login here
@@ -26,7 +28,10 @@ function LoginPage(props) {
 
     try {
       const res = await fetch(
-        process.env.CONFMAN_API_BASE_URL + "users/signin",
+        // process.env.CONFMAN_API_BASE_URL + " users/signin",
+        // process.env.CONFMAN_API_BASE_URL,
+        // "http://ec2-54-251-67-34.ap-southeast-1.compute.amazonaws.com:8080/users/signin",
+        "http://localhost:4000/users/signin",
         {
           method: "POST",
           headers: {

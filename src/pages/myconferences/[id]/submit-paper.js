@@ -103,6 +103,7 @@ function SubmitPaper(props) {
         const res = await uploadPaper(formData);
 
         console.log(res);
+        router.push("/papers");
       } catch (error) {
         console.log(error);
       }

@@ -170,6 +170,8 @@ function ConferenceCard({ conference, onUpdate }) {
 }
 
 function CreatedConferences({ data }) {
+  console.log("data", data);
+
   const [conferences, setConferences] = useState(data);
 
   const updateConferenceData = (updatedConference) => {
@@ -211,6 +213,8 @@ export async function getServerSideProps(context) {
     const { req } = context;
     const response = await fetchCreatedConferences(req);
     const data = response?.data?.result;
+
+    console.log("server-data", data);
 
     return {
       props: { data },
